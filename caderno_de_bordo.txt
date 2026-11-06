@@ -1,0 +1,25 @@
+CADERNO DE BORDO - GRUPO 11 (Fase 1)
+Projeto Campus Acessível
+
+Registro 01 (2026-09-22): Integrantes Nickollas e Felipe realizaram a varredura inicial no setor Syntch, identificando espaços e medindo as primeiras barreiras.
+Registro 02 (2026-09-23): Finalização do inventário-piloto no Syntch (8 barreiras) e alinhamento dos critérios de orçamento e gravidade.
+Registro 03 (2026-10-15): O grupo decidiu alterar o setor de estudo para a "Academia Fusion" para obter barreiras estruturais mais críticas (como catracas e falta de elevadores), essenciais para testar o algoritmo exaustivo na Fase 2. Realizamos nova coleta, medições e registramos 15 novas barreiras, consolidando a ficha de campo da Entrega E2.
+Registro 04 (2026-11-05): Felipe implementou os módulos de coleta, recursão e ordenação, gerou o inventário JSON e testou o resumo hierárquico e o ranking por Insertion Sort. O grupo corrigiu os três custos zerados da ficha para incluir estimativas de material, tempo e mão de obra.
+
+--- SEÇÕES OBRIGATÓRIAS ---
+
+1. Divisão de responsabilidades
+- Nickollas Teixeira Medeiros: Responsável pelo registo fotográfico em campo e medição das larguras de circulação com a trena.
+- Felipe Allan Nascimento Cruz: Responsável pela tabulação dos dados no arquivo de texto, formatação da árvore hierárquica em JSON e redação dos critérios.
+- João Gabriel: Responsável por auxiliar nas medições físicas dos acessos e sanitários, e por realizar o levantamento de preços na internet para a estimativa de custos das intervenções.
+
+2. Registro de uso de ferramentas de IA
+- Ferramenta: LLM (Gemini).
+- O que foi pedido: Análise de fotografias para extração de barreiras normativas baseadas na NBR 9050 e formatação dos dados no padrão CSV com separador de ponto e vírgula.
+- O que voltou: Uma lista de barreiras com os textos descritivos, sugestões de intervenções e um bloco de texto tabulado.
+- O que o grupo alterou e por quê: O grupo revisou as medidas sugeridas para adequá-las à realidade do local e ajustou o formato da árvore hierárquica sugerida para garantir que os caminhos batessem perfeitamente com o nosso escopo.
+
+3. Um defeito que nós encontramos
+- Defeito: Ao tentar abrir a ficha de campo no Excel (e prever a leitura no Python) para conferência, as colunas ficaram completamente desalinhadas.
+- Revelação: Descobrimos que alguns textos de descrição gerados inicialmente continham pontuação de ponto e vírgula (;) no meio da frase, o que quebrava o delimitador do CSV.
+- Correção: Removemos todos os pontos e vírgulas de dentro das descrições e intervenções, mantendo o caractere exclusivamente como separador de colunas.

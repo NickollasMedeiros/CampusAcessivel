@@ -1,0 +1,49 @@
+COTACAO ESTIMATIVA - ACADEMIA FUSION
+Data da estimativa: 2026-11-05
+Local considerado: Engenheiro Coelho - SP
+
+Esta cotacao e uma estimativa preliminar para o projeto academico. Os valores
+incluem material, mao de obra basica, pequenos insumos e tempo de execucao,
+quando aplicavel. Nao e proposta comercial nem substitui tres orcamentos de
+fornecedores. Frete, projetos, adequacoes eletricas, licencas e imprevistos
+podem alterar os valores.
+
+Codigo       Intervencao                                      Estimativa (R$)
+ACA-REC-01  Cancela acessivel                                3.500,00
+ACA-REC-02  Rebaixamento de trecho do balcao                 1.200,00
+ACA-REC-03  Fixacao ou remocao do tapete                       150,00
+ACA-REC-04  Faixas de contraste na porta de vidro              150,00
+ACA-ESP-05  Substituicao por poltronas com apoio             1.600,00
+ACA-ESC-06  Plataforma elevatoria cabinada                  60.000,00
+ACA-ESC-07  Corrimao no lado esquerdo                          800,00
+ACA-ESC-08  Barra dupla de corrimao                          1.200,00
+ACA-ESC-09  Piso tatil de alerta                               600,00
+ACA-SAN-10  Lavatorio embutido acessivel                     1.800,00
+ACA-SAN-11  Reposicionamento do espelho                        250,00
+ACA-SAN-12  Protecao no sifao                                  150,00
+ACA-SAN-13  Remocao da corrente                                120,00
+ACA-SAN-14  Porta de correr acessivel                        2.500,00
+ACA-TRE-15  Reorganizacao do layout dos equipamentos         2.000,00
+
+TOTAL ESTIMADO: R$ 76.020,00
+
+JUSTIFICATIVAS E LIMITACOES
+- ACA-REC-01: valor para cancela/portao acessivel, ferragens e instalacao.
+- ACA-REC-02: inclui servico de marcenaria, acabamento e ajuste do trecho.
+- ACA-REC-03, ACA-REC-04, ACA-SAN-12 e ACA-SAN-13: servicos simples, mas
+  mantem custo de deslocamento e mao de obra, mesmo quando o material e barato.
+- ACA-ESP-05: considera mais de uma poltrona com bracos, conforme a descricao.
+- ACA-ESC-06: item sujeito a visita tecnica. O valor foi elevado para incluir
+  equipamento, estrutura, instalacao e adequacoes. Deve ser confirmado por
+  empresa especializada antes de qualquer decisao real.
+- ACA-ESC-07 e ACA-ESC-08: incluem fabricacao/compra, fixacao e acabamento.
+- ACA-ESC-09: depende da quantidade de degraus e da area de aplicacao; o valor
+  considera material e instalacao de um trecho pequeno.
+- ACA-SAN-10 e ACA-SAN-14: incluem retirada, novo equipamento/porta, ferragens,
+  ajustes e instalacao, por isso ficaram acima de uma simples compra de material.
+- ACA-TRE-15: inclui desmontagem, deslocamento interno, remontagem e ajuste dos
+  equipamentos, nao apenas o desenho do novo layout.
+
+Para transformar esta estimativa em cotacao verificavel, o grupo deve anexar
+prints, links ou mensagens de pelo menos um fornecedor para cada grupo de
+intervencoes e registrar data, quantidade, frete e mao de obra.
