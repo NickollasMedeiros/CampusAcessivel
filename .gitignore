@@ -3,6 +3,10 @@ __pycache__/
 .DS_Store
 .vscode/
 
+# Maestri
+.maestri/
+*.maestri
+
 # Arquivos temporarios de execucao
 automacao/
 relatorios_gerados/
