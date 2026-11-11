@@ -116,6 +116,82 @@ def registros_para_setor(registros):
     return raiz
 
 
+def obter_todos_codigos(no):
+    codigos = []
+    for barreira in no.get("barreiras", []):
+        codigos.append(barreira.get("codigo"))
+    for subsetor in no.get("subsetores", []):
+        codigos.extend(obter_todos_codigos(subsetor))
+    return codigos
+
+
+def localizar_barreira(no, codigo):
+    for barreira in no.get("barreiras", []):
+        if barreira.get("codigo") == codigo:
+            return barreira
+    for subsetor in no.get("subsetores", []):
+        encontrada = localizar_barreira(subsetor, codigo)
+        if encontrada is not None:
+            return encontrada
+    return None
+
+
+def cadastrar_barreira(setor, barreira):
+    codigos_existentes = obter_todos_codigos(setor)
+    problemas = validar_registro(barreira, codigos_existentes)
+    if problemas:
+        return False, problemas
+
+    partes = [parte.strip() for parte in barreira["caminho"].split(">")]
+    no = setor
+    for parte in partes[1:]:
+        encontrado = None
+        for subsetor in no.get("subsetores", []):
+            if subsetor["nome"] == parte:
+                encontrado = subsetor
+                break
+        if encontrado is None:
+            encontrado = {"nome": parte, "barreiras": [], "subsetores": []}
+            no.setdefault("subsetores", []).append(encontrado)
+        no = encontrado
+    no.setdefault("barreiras", []).append(barreira)
+    return True, "Barreira cadastrada com sucesso."
+
+
+def editar_barreira(setor, codigo, novos_dados):
+    barreira = localizar_barreira(setor, codigo)
+    if barreira is None:
+        return False, ["Barreira não encontrada com o código: " + codigo]
+
+    dados_atualizados = barreira.copy()
+    dados_atualizados.update(novos_dados)
+
+    codigos_outros = []
+    for c in obter_todos_codigos(setor):
+        if c != codigo:
+            codigos_outros.append(c)
+
+    problemas = validar_registro(dados_atualizados, codigos_outros)
+    if problemas:
+        return False, problemas
+
+    barreira.update(novos_dados)
+    return True, "Barreira atualizada com sucesso."
+
+
+def remover_barreira(no, codigo):
+    barreiras = no.get("barreiras", [])
+    for indice, barreira in enumerate(barreiras):
+        if barreira.get("codigo") == codigo:
+            del barreiras[indice]
+            return True, "Barreira removida com sucesso."
+    for subsetor in no.get("subsetores", []):
+        removido, msg = remover_barreira(subsetor, codigo)
+        if removido:
+            return True, msg
+    return False, "Barreira não encontrada com o código: " + codigo
+
+
 def gravar_inventario(caminho, setor):
     with open(caminho, "w", encoding="utf-8") as arquivo:
         json.dump(setor, arquivo, ensure_ascii=False, indent=2)

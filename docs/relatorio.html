@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatório Técnico - Campus Acessível</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.45;
+    color: #24292f;
+    margin: 0;
+    padding: 15px;
+    background: #fff;
+  }
+  h1 { font-size: 20px; margin-bottom: 4px; color: #0969da; border-bottom: 2px solid #0969da; padding-bottom: 6px; }
+  pre {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: "Cascadia Code", "Consolas", monospace;
+    font-size: 10px;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .meta {
+    font-size: 11px;
+    color: #57606a;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+<h1>Campus Acessível - Relatório Técnico dos Cinco Achados</h1>
+<div class="meta">
+  <strong>UNASP - Engenharia de Computação (2026/2)</strong><br>
+  <strong>Disciplina:</strong> Construção de Algoritmos e Programação | <strong>Professor:</strong> Eduardo Mendes Oliveira<br>
+  <strong>Grupo 11:</strong> Nickollas Teixeira Medeiros, Felipe Allan Nascimento Cruz, João Gabriel<br>
+  <strong>Setor:</strong> Academia Fusion
+</div>
+
+<pre>================================================================================
+RELATÓRIO TÉCNICO - CAMPUS ACESSÍVEL (GRUPO 11 - ENGENHARIA DE COMPUTAÇÃO)
+SETOR: Academia Fusion
+DISCIPLINA: Construção de Algoritmos e Programação (2026/2)
+PROFESSOR: Eduardo Mendes Oliveira
+================================================================================
+
+=== MATRIZ AMBIENTE X TIPO DE BARREIRA ===
+Ambiente               | porta_estreita |    balcao_alto | piso_irregular | sinalizacao_ausente | mobiliario_inadequado | elevador_ausente | ausencia_corrimao | banheiro_inadequado | circulacao_estreita |  TOTAL
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Entrada                |              1 |              1 |              1 |                   1 |                     0 |                0 |                 0 |                   0 |                   0 |      4
+Área de Espera         |              0 |              0 |              0 |                   0 |                     1 |                0 |                 0 |                   0 |                   0 |      1
+Escadaria Principal    |              0 |              0 |              0 |                   1 |                     0 |                1 |                 2 |                   0 |                   0 |      4
+Lavatório              |              1 |              0 |              0 |                   0 |                     2 |                0 |                 0 |                   1 |                   1 |      5
+Musculação             |              0 |              0 |              0 |                   0 |                     0 |                0 |                 0 |                   0 |                   1 |      1
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL POR TIPO         |              2 |              1 |              1 |                   2 |                     3 |                1 |                 2 |                   1 |                   2 |     15
+
+================================================================================
+A1 - ACHADO DE ORDENAÇÃO: COMPARAÇÕES E TROCAS
+================================================================================
+
+--- Tamanho: 1/3 da base (N = 5) ---
+Cenário      | Bubble Sort        | Selection Sort     | Insertion Sort    
+---------------------------------------------------------------------------
+Original     | C= 10, T=  6       | C= 10, T=  2       | C=  7, T=  6
+Ordenada     | C=  4, T=  0       | C= 10, T=  0       | C=  4, T=  0
+Inversa      | C= 10, T= 10       | C= 10, T=  2       | C= 10, T= 10
+
+--- Tamanho: 2/3 da base (N = 10) ---
+Cenário      | Bubble Sort        | Selection Sort     | Insertion Sort    
+---------------------------------------------------------------------------
+Original     | C= 42, T= 22       | C= 45, T=  8       | C= 28, T= 22
+Ordenada     | C=  9, T=  0       | C= 45, T=  0       | C=  9, T=  0
+Inversa      | C= 45, T= 45       | C= 45, T=  5       | C= 45, T= 45
+
+--- Tamanho: Total da base (N = 15) ---
+Cenário      | Bubble Sort        | Selection Sort     | Insertion Sort    
+---------------------------------------------------------------------------
+Original     | C=104, T= 60       | C=105, T= 10       | C= 69, T= 60
+Ordenada     | C= 14, T=  0       | C=105, T=  0       | C= 14, T=  0
+Inversa      | C=105, T=105       | C=105, T=  7       | C=105, T=105
+
+EXPLICAÇÃO DO GRUPO:
+1. Comparações invariantes: O Selection Sort sempre executa n(n-1)/2 comparações
+   (10 para N=5, 45 para N=10, 105 para N=15), independentemente da ordem inicial,
+   pois percorre obrigatoriamente todo o restante da lista para encontrar o menor/maior.
+2. Variação do Insertion Sort: Varia fortemente conforme a ordenação prévia.
+   Na lista já ordenada, realiza apenas (n-1) comparações (melhor caso linear O(n)).
+   Na lista inversa, atinge o pior caso quadrático n(n-1)/2 comparações e trocas.
+3. Relação entre trocas do Bubble e Insertion: O número de trocas do Bubble Sort
+   e do Insertion Sort é RIGOROSAMENTE IDÊNTICO em todos os cenários:
+   ambos resolvem exatamente as mesmas inversões de pares adjacentes na lista.
+
+================================================================================
+A2 - ACHADO DE BUSCA: NÚMERO DE COMPARAÇÕES
+================================================================================
+
+Posição / Caso       | Código       | Sequencial (Pos/C) | Bin. Iterativa (Pos/C) | Bin. Recursiva (Pos/C)
+------------------------------------------------------------------------------------------------
+Primeiro código      | ACA-ESC-06   | pos= 0, C= 1       | pos= 0, C= 4       | pos= 0, C= 4
+Código do meio       | ACA-REC-03   | pos= 7, C= 8       | pos= 7, C= 1       | pos= 7, C= 1
+Último código        | ACA-TRE-15   | pos=14, C=15       | pos=14, C= 4       | pos=14, C= 4
+Aleatório do meio    | ACA-ESC-09   | pos= 3, C= 4       | pos= 3, C= 2       | pos= 3, C= 2
+Código inexistente   | ACA-XXX-99   | pos=-1, C=15       | pos=-1, C= 4       | pos=-1, C= 4
+
+EXPLICAÇÃO DO GRUPO:
+1. Onde a Busca Sequencial ganha: No primeiro elemento da lista (C=1 vs C=4).
+   A busca sequencial testa o índice 0 imediatamente, enquanto a binária inicia
+   dividindo pelo ponto médio e precisa descer na árvore de decisão até a folha.
+2. Custo da ordenação prévia: A busca binária exige lista ordenada por código.
+   Ordenar a base com nossos algoritmos custa O(n^2) (105 comparações para 15 itens).
+   Portanto, a binária só compensa quando faremos múltiplas consultas sucessivas,
+   amortizando o custo inicial da ordenação.
+3. Código inexistente vs Pior caso: Para um código inexistente, a busca binária
+   percorre a profundidade máxima da árvore de decisão até que inicio > fim,
+   consumindo exatamente teto(log2(n + 1)) = 4 comparações, idêntico ao pior caso existente.
+
+================================================================================
+A3 - ACHADO DE HIERARQUIA: ESTRUTURA DO SETOR E PROFUNDIDADE
+================================================================================
+
+Setor Principal: Academia Fusion
+Profundidade real da árvore: 3 níveis
+
+TOTAIS POR SUBSETOR DE PRIMEIRO NÍVEL:
+Subsetor (1º Nível)            | Qtd Barreiras   | Custo Total       
+----------------------------------------------------------------------
+Receção e Espera               | 5               | R$        6600.00
+Acessos e Sanitários           | 9               | R$       67420.00
+Área de Treino                 | 1               | R$        2000.00
+----------------------------------------------------------------------
+TOTAL DO SETOR                 | 15              | R$       76020.00
+
+BARREIRAS MAIS GRAVES (GRAVIDADE 5) E SEUS CAMINHOS HIERÁRQUICOS:
+- [ACA-REC-01] Catraca rotativa sem passagem alternativa lateral: caminho = 'Academia Fusion > Receção e Espera > Entrada' (Custo: R$ 3500.00)
+- [ACA-ESC-06] Ausência de elevador ou rampa para o piso superior: caminho = 'Academia Fusion > Acessos e Sanitários > Escadaria Principal' (Custo: R$ 60000.00)
+- [ACA-SAN-14] Porta de fole que reduz o vão livre de passagem para 65 cm: caminho = 'Academia Fusion > Acessos e Sanitários > Lavatório e WC' (Custo: R$ 2500.00)
+
+EXPLICAÇÃO DO GRUPO:
+1. Limitação de laços aninhados: Uma estrutura com 2 laços fixos acessaria apenas
+   os subsetores de nível 1 e 2, falhando silenciosamente ao ignorar completamente
+   os ambientes e subambientes do 3º nível (como a Entrada e Área de Espera).
+   A recursão é a única abordagem invariante à profundidade arbitrária da árvore.
+2. Remoção do caso base: Se o caso base for removido da recursão, as chamadas
+   ocorrerão indefinidamente sem condição de parada, estourando a pilha de execução
+   do Python com a exceção: 'RecursionError: maximum recursion depth exceeded'.
+
+================================================================================
+A4 - ACHADO DE OTIMIZAÇÃO: PACOTE GULOSO X EXAUSTIVO
+================================================================================
+
+COMPARAÇÃO DE ESTRATÉGIAS EM 4 TETOS DE ORÇAMENTO:
+Orçamento    | Guloso (Benef/Custo/Itens) | Exaustivo (Benef/Custo/Itens) | Chamadas  
+--------------------------------------------------------------------------------
+R$  1000.00 | 13.600 / R$ 820.00 / 5 it | 13.600 / R$ 820.00 / 5 it |        127
+R$  3000.00 | 19.400 / R$ 2220.00 / 7 it | 20.000 / R$ 2620.00 / 7 it |       2481
+R$  6000.00 | 25.200 / R$ 4620.00 / 9 it | 26.400 / R$ 5920.00 / 9 it |      10075
+R$ 10000.00 | 31.600 / R$ 8420.00 / 11 it | 32.800 / R$ 9720.00 / 11 it |      15971
+
+CASO DE DIVERGÊNCIA COMPROVADO NO ORÇAMENTO DE R$ 3000.00:
+- Estratégia Gulosa: Benefício = 19.400 | Custo = R$ 2220.00
+  Barreiras escolhidas: ACA-SAN-13, ACA-SAN-12, ACA-REC-04, ACA-REC-03, ACA-SAN-11, ACA-ESC-09, ACA-ESC-07
+- Estratégia Exaustiva: Benefício = 20.000 | Custo = R$ 2620.00
+  Barreiras escolhidas: ACA-REC-02, ACA-REC-03, ACA-REC-04, ACA-ESC-09, ACA-SAN-11, ACA-SAN-12, ACA-SAN-13
+  Ganho do Exaustivo: +0.600 de benefício acumulado.
+  Por que a Gulosa perdeu? A estratégia gulosa preenche o orçamento estritamente
+  pela razão benefício/custo. Após incluir itens pequenos, o orçamento restante
+  não foi suficiente para acomodar a barreira seguinte no ranking (ACA-REC-02, R$ 1.200),
+  deixando R$ 780,00 ociosos. A exaustiva testou todas as combinações e descobriu que
+  substituir a barreira ACA-ESC-07 (R$ 800) por ACA-REC-02 (R$ 1.200) aproveitava melhor
+  o limite de R$ 3.000,00, elevando o benefício global.
+
+CRESCIMENTO DO NÚMERO DE CHAMADAS RECURSIVAS CONFORME ENTRADA (Orçamento R$ 10.000):
+Nº Candidatos   | Chamadas Recursivas 
+----------------------------------------
+3               | 15                  
+5               | 63                  
+8               | 287                 
+10              | 1044                
+14              | 8188                
+
+RESPOSTA SOBRE O CAMPUS INTEIRO COM 400 BARREIRAS:
+A abordagem exaustiva NÃO SERVE para 400 barreiras. Como a árvore de decisão binária
+gera até 2^N combinações, para N = 400 o algoritmo exigiria 2^400 chamadas (aproximadamente
+2,58 x 10^120 operações), o que supera em muitas ordens de grandeza a idade do universo.
+Para a escala do campus inteiro, torna-se obrigatório o uso de Programação Dinâmica,
+algoritmos Branch and Bound com poda avançada ou heurísticas como a própria gulosa.
+
+================================================================================
+A5 - ACHADO DE DECISÃO: ÍNDICE, PESOS E ANÁLISE DE SENSIBILIDADE
+================================================================================
+
+FÓRMULA DO ÍNDICE DE PRIORIDADE:
+beneficio = gravidade * peso_gravidade + (pessoas_dia / 100) * peso_alcance
+indice    = beneficio / (custo / 1000)
+
+Pesos Base Adotados: Gravidade = 0.6 | Alcance = 0.4
+Regra de Desempate Declarada: Em caso de índices idênticos, o desempate é feito
+pela ordem alfabética crescente do campo 'codigo'.
+
+ANÁLISE DE SENSIBILIDADE - TOP 10 RANKINGS:
+Pos  | Base (0.6 / 0.4)       | Dobro Grav (1.2 / 0.4) | Dobro Alc (0.6 / 0.8) 
+------------------------------------------------------------------------------
+01   | ACA-SAN-13 (idx 26.67) | ACA-SAN-13 (idx 46.67) | ACA-SAN-13 (idx 33.33)
+02   | ACA-SAN-12 (idx 21.33) | ACA-SAN-12 (idx 37.33) | ACA-SAN-12 (idx 26.67)
+03   | ACA-REC-04 (idx 17.33) | ACA-REC-04 (idx 29.33) | ACA-REC-04 (idx 22.67)
+04   | ACA-REC-03 (idx 13.33) | ACA-REC-03 (idx 21.33) | ACA-REC-03 (idx 18.67)
+05   | ACA-SAN-11 (idx 10.40) | ACA-SAN-11 (idx 17.60) | ACA-SAN-11 (idx 13.60)
+06   | ACA-ESC-09 (idx 5.33) | ACA-ESC-09 (idx 9.33) | ACA-ESC-09 (idx 6.67)
+07   | ACA-ESC-07 (idx 3.25) | ACA-ESC-07 (idx 5.50) | ACA-ESC-07 (idx 4.25)
+08   | ACA-REC-02 (idx 2.67) | ACA-REC-02 (idx 4.67) | ACA-REC-02 (idx 3.33)
+09   | ACA-ESC-08 (idx 2.17) | ACA-ESC-08 (idx 3.67) | ACA-ESC-08 (idx 2.83)
+10   | ACA-SAN-10 (idx 1.78) | ACA-SAN-10 (idx 3.11) | ACA-SAN-10 (idx 2.22)
+
+JUSTIFICATIVA E CONCLUSÃO DA RECOMENDAÇÃO DO GRUPO:
+O grupo mantém sua recomendação original com base no cenário base (0.6 gravidade / 0.4 alcance).
+Argumento: As 6 primeiras posições são notavelmente estáveis entre os cenários porque reúnem
+baixo custo financeiro aliado a alto impacto na circulação imediata dos frequentadores
+(como a remoção de correntes e adequação de sifão e tapetes). Pequenas variações de peso
+alteram apenas a ordem relativa de itens com custos semelhantes, sem distorcer o núcleo
+das intervenções prioritárias recomendadas à administração da academia.
+</pre>
+
+</body>
+</html>

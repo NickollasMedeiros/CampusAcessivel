@@ -1,3 +1,6 @@
+import ordenacao
+
+
 def custo_total(no):
     # Caso base: se o nó não tiver barreiras nem subsetores, o custo é zero.
     total = 0.0
@@ -75,8 +78,46 @@ def resumo_hierarquico(no, nivel=0):
     recuo = "  " * nivel
     print("{}{} - {} barreiras - R$ {:.2f}".format(
         recuo, no["nome"], contar_barreiras(no), custo_total(no)))
+    # Caso base: quando o nó não possui subsetores, o laço for não é executado e a chamada retorna.
     for subsetor in no.get("subsetores", []):
         resumo_hierarquico(subsetor, nivel + 1)
+
+
+def podar_inviaveis(barreiras, orcamento):
+    """
+    Descarta as barreiras cujo custo individual excede o orçamento total disponível.
+    Esta é uma poda prévia legítima porque itens que sozinhos estouram o teto
+    jamais poderão compor qualquer solução válida.
+    """
+    candidatos = []
+    for barreira in barreiras:
+        if barreira["custo"] <= orcamento:
+            candidatos.append(barreira)
+    return candidatos
+
+
+def pacote_guloso(barreiras, orcamento, pesos):
+    """
+    Estratégia gulosa para o problema da mochila/intervenção:
+    Ordena pelo índice de prioridade decrescente e inclui barreiras
+    enquanto couber no orçamento disponível.
+    Devolve (beneficio, custo, lista_de_codigos).
+    """
+    copia = [b.copy() for b in barreiras]
+    ordenacao.calcular_indices(copia, pesos)
+    ordenadas, _, _ = ordenacao.insertion_sort(copia, chave="indice", crescente=False)
+
+    beneficio_total = 0.0
+    custo_total_acumulado = 0.0
+    codigos_escolhidos = []
+
+    for b in ordenadas:
+        if custo_total_acumulado + b["custo"] <= orcamento:
+            custo_total_acumulado += b["custo"]
+            beneficio_total += _beneficio(b, pesos)
+            codigos_escolhidos.append(b["codigo"])
+
+    return beneficio_total, custo_total_acumulado, codigos_escolhidos
 
 
 def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None):
